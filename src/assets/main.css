@@ -1,0 +1,12 @@
+@import './base.css';
+
+#app {
+  height: 100vh;
+  padding: 0.5rem;
+}
+
+.mm-toolbar {
+  position: absolute;
+  bottom: 1.5rem;
+  right: 1.5rem;
+}
