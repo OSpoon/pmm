@@ -58,3 +58,5 @@ https://pmm-rust.vercel.app/?username=<username>&resp=<resp>
 ## 注意事项
 
 由于每个项目的 **README.md** 文件的书写规范多样，可能无法很好的渲染为 **Markmap**，对于一些教程类或插件列表类的 **README.md** 使用 **Markmap** 预览最佳。 
+
+如果没有出现 **PreviewMarkmap** 菜单，可以尝试刷新当前 **Github** 项目主页。
