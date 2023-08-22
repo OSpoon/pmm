@@ -1,46 +1,60 @@
-# pmm
+# PMM
 
-This template should help get you started developing with Vue 3 in Vite.
+**PMM**（Preview Mark Map） 是一个在线将 **Github** 项目的 **README** 文件渲染为 **Markmap** 的服务。
 
-## Recommended IDE Setup
+## 访问方式
 
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur) + [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin).
+通过查询参数提供 **Github** 的 `username` 和 `resp` 到 `https://pmm-rust.vercel.app/`；
 
-## Type Support for `.vue` Imports in TS
-
-TypeScript cannot handle type information for `.vue` imports by default, so we replace the `tsc` CLI with `vue-tsc` for type checking. In editors, we need [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin) to make the TypeScript language service aware of `.vue` types.
-
-If the standalone TypeScript plugin doesn't feel fast enough to you, Volar has also implemented a [Take Over Mode](https://github.com/johnsoncodehk/volar/discussions/471#discussioncomment-1361669) that is more performant. You can enable it by the following steps:
-
-1. Disable the built-in TypeScript Extension
-    1) Run `Extensions: Show Built-in Extensions` from VSCode's command palette
-    2) Find `TypeScript and JavaScript Language Features`, right click and select `Disable (Workspace)`
-2. Reload the VSCode window by running `Developer: Reload Window` from the command palette.
-
-## Customize configuration
-
-See [Vite Configuration Reference](https://vitejs.dev/config/).
-
-## Project Setup
-
-```sh
-npm install
+```
+https://pmm-rust.vercel.app/?username=<username>&resp=<resp>
 ```
 
-### Compile and Hot-Reload for Development
+## 演示截图
 
-```sh
-npm run dev
+* 访问：https://pmm-rust.vercel.app/?username=vuejs&resp=awesome-vue
+
+![](https://temp-files-20221205.oss-cn-hangzhou.aliyuncs.com/picgo/202308221743165.png)
+
+* 访问：https://pmm-rust.vercel.app/?username=vitejs&resp=awesome-vite
+
+![](https://temp-files-20221205.oss-cn-hangzhou.aliyuncs.com/picgo/202308221743075.png)
+
+* 访问：https://pmm-rust.vercel.app/?username=rollup&resp=awesome
+
+![](https://temp-files-20221205.oss-cn-hangzhou.aliyuncs.com/picgo/202308221743802.png)
+## 油猴脚本
+
+> 打开 Github 项目时将 `PreviewMarkmap` 菜单添加到 README.md 后，快速以 Markmap 的方式查看。
+
+```JavaScript
+// ==UserScript==
+// @name         Preview Mark Map
+// @namespace    https://github.com/
+// @version      0.1
+// @description  添加 PreviewMarkMap 菜单到Github项目的README.md后。
+// @author       小鑫同学
+// @match        https://github.com/*/*
+// @icon         https://www.google.com/s2/favicons?sz=64&domain=github.com
+// @run-at       document-end
+// @grant        none
+// ==/UserScript==
+
+(function() {
+    'use strict';
+    const rootUrl = 'https://pmm-rust.vercel.app';
+    const titleBox = document.querySelector('#readme h2.Box-title');
+    const [ username, resp ] = window.location.pathname.slice(1).split('/');
+    const pmm = document.createElement('a');
+    pmm.id = 'previewMarkmap';
+    pmm.textContent = "PreviewMarkmap";
+    pmm.target = "_blank";
+    pmm.style.marginLeft = '10px';
+    pmm.href = `${rootUrl}?username=${username}&resp=${resp}`;
+    titleBox.appendChild(pmm);
+})();
 ```
 
-### Type-Check, Compile and Minify for Production
+## 注意事项
 
-```sh
-npm run build
-```
-
-### Lint with [ESLint](https://eslint.org/)
-
-```sh
-npm run lint
-```
+由于每个项目的 **README.md** 文件的书写规范多样，可能无法很好的渲染为 **Markmap**，对于一些教程类或插件列表类的 **README.md** 使用 **Markmap** 预览最佳。 
